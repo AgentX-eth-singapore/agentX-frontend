@@ -15,7 +15,7 @@ type TeamMemberProps = {
 const TeamMember: React.FC<TeamMemberProps> = ({ name, role, imageSrc, socialLinks }) => (
   <div data-aos="fade-up" className="flex flex-col items-center gap-4">
     <img src={imageSrc} className="lg:h-72 md:h-52 h-52 rounded-full shadow-lg" alt={name} />
-    <p className="text-3xl font-medium hover:text-purple-500 transition-colors duration-300">
+    <p className="text-3xl font-medium hover:text-purple-500 transition-colors duration-300 pt-6">
       {name}
     </p>
     <p className="text-gray-500 font-medium">{role}</p>
@@ -40,8 +40,8 @@ const Team = () => {
   const teamMembers = [
     {
       name: "Vibhav Sharma",
-      role: "CEO",
-      imageSrc: "./images/cat.jpg",
+      role: "Hacker",
+      imageSrc: "https://media.licdn.com/dms/image/v2/C4D03AQFrcndMJnjijw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1660496287086?e=1732147200&v=beta&t=RndZOuLOPJz3hXVVyiq46CnoMdx5DTbSNbMiBuhDXyk",
       socialLinks: {
         github: "https://github.com/",
         instagram: "https://www.instagram.com/",
@@ -51,8 +51,8 @@ const Team = () => {
     },
     {
       name: "Deepanshu Prajapati",
-      role: "CEO",
-      imageSrc: "./images/cat.jpg",
+      role: "Hacker",
+      imageSrc: "https://avatars.githubusercontent.com/u/27270664?v=4",
       socialLinks: {
         github: "https://github.com/",
         instagram: "https://www.instagram.com/",
@@ -62,8 +62,8 @@ const Team = () => {
     },
     {
       name: "Krishna Sharma",
-      role: "CEO",
-      imageSrc: "./images/cat.jpg",
+      role: "Hacker",
+      imageSrc: "https://pbs.twimg.com/profile_images/1817919928760164352/xwdvbnEe_400x400.jpg",
       socialLinks: {
         github: "https://github.com/",
         instagram: "https://www.instagram.com/",

@@ -134,7 +134,7 @@ export default function Form({
             isSelected={isCCIPEnabled}
             onValueChange={() => setIsCCIPEnabled(!isCCIPEnabled)}
           >
-            Is your contract CCIP enabled
+            <span className="text-sm">Is your contract CCIP enabled</span>
           </Switch>
           {/* Show input for function name when CCIP is enabled */}
           {isCCIPEnabled && (
@@ -151,9 +151,9 @@ export default function Form({
             onValueChange={() =>
               setIsMetaTransactionEnabled(!isMetaTransactionEnabled)
             }
-            aria-label="Meta Transaction Toggle"
+            aria-label="Do you support Oracle?"
           >
-            Meta transaction enabled
+            <span className="text-sm">Do you support Oracle?</span>
           </Switch>
           <Textarea
             label="ABI"
@@ -182,9 +182,11 @@ export default function Form({
       )}
 
       {UID && (
+        <div className="bg-gray-300 px-2 py-1 rounded-lg border shadow">
         <WithCopyText copieableText={UID}>
-          <h1>Please copy : {UID}</h1>
+          <h1 className="text-gray-600">{UID}</h1>
         </WithCopyText>
+        </div>
       )}
     </div>
   );

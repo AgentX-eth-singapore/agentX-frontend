@@ -6,16 +6,18 @@ import { IChain } from "@/config/chains";
 import DefaultLayout from "@/layouts/default";
 import { Switch } from "@nextui-org/switch";
 import axios from "axios";
-import { useState } from "react";
-import { useAccount,  useEnsName } from "wagmi";
+import { useEffect, useState } from "react";
+import { useAccount, useEnsName } from "wagmi";
 
 export default function IndexPage() {
   const { isConnected, address } = useAccount();
   const { data: ensName } = useEnsName({
-    address: address })
+    address: address
+  })
 
   const [isRegisteringSmartContract, setIsRegisteringSmartContract] =
     useState(false);
+  const [ens, setEns] = useState<string>("");
   const [stage, setStage] = useState("world-id");
   const [isWorldIDVerified, setIsWorldIDVerified] = useState(
     localStorage.getItem("isWorldIDVerified") === "true"
@@ -137,6 +139,19 @@ export default function IndexPage() {
     }
   };
 
+  useEffect(() => {
+    if (isConnected && address) {
+      // fetch ens from local storage
+      const ens = localStorage.getItem("ens");
+      if (ens) {
+        const ensConfig = JSON.parse(ens);
+        if (address) {
+          setEns(ensConfig[address]);
+        }
+      }
+    }
+  }, [isConnected, address]);
+
   return (
     <DefaultLayout stage={stage}>
       {/* <Button onClick={handleCall}>CLICK</Button> */}
@@ -154,21 +169,20 @@ export default function IndexPage() {
           <div className="relative w-96 h-[65vh] perspective-3d">
             {/* Card Inner Wrapper */}
             <div
-              className={`relative w-full h-full transition-transform duration-700 transform-style-3d ${
-                isRegisteringSmartContract ? "rotate-y-180" : ""
-              }`}
+              className={`relative w-full h-full transition-transform duration-700 transform-style-3d ${isRegisteringSmartContract ? "rotate-y-180" : ""
+                }`}
             >
               {/* Front Side */}
               <div className="absolute w-full h-full backface-hidden flex justify-center items-center bg-white shadow-lg rounded-lg flex-col">
                 {stage === "connect-wallet" && <ConnectWallet />}
-                {!ensName ? <ENSForm></ENSForm> : <div>{ensName}HELLO</div>}
+                {!ens ? <ENSForm setEns={setEns}></ENSForm> : <div> Hello {ens} 👋</div>}
                 <Switch
                   aria-label="Register Smart Contract"
                   className="py-8"
                   isSelected={isRegisteringSmartContract}
                   onValueChange={handleToggle}
                 >
-                  Are You Registering Smart Contract.
+                  <span className="text-sm">Are You Registering Smart Contract.</span>
                 </Switch>
               </div>
 
@@ -180,7 +194,8 @@ export default function IndexPage() {
                   isSelected={isRegisteringSmartContract}
                   onValueChange={handleToggle}
                 >
-                  {UID ? "GO Back!!" : "Are You Registering Smart Contract."}
+                  <span className="text-sm">{UID ? "GO Back!!" : "Are You Registering Smart Contract."}</span>
+                  
                 </Switch>
                 {isConnected ? (
                   <Form

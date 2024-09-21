@@ -46,7 +46,7 @@ export const Navbar = ({ stage }: { stage: string }) => {
   const handleLogout = () => {
     // Remove specific items from local storage
     Object.keys(localStorage).forEach((key) => {
-      if (key !== "theme") {
+      if (key !== "theme" && key !== "ens") {
         localStorage.removeItem(key);
       }
     });

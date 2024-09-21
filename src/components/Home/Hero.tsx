@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Parallax, ParallaxBanner } from "react-scroll-parallax";
 
 const Hero = () => {
@@ -50,12 +51,9 @@ const Hero = () => {
               exclusive prizes by AngelHack.
             </p>
             <div className="flex gap-5">
-              <button className="bg-purple-600 px-4 py-1.5 rounded-md text-sm">
-                MINT NOW 😎
-              </button>
-              <button className="border px-4 py-1.5 rounded-md text-sm">
-                JOIN US 👁️
-              </button>
+              <Link to='/app' className="bg-purple-600 px-4 py-1.5 rounded-md text-sm text-white px-4 py-2">
+                Launch Now 😎
+              </Link>
             </div>
           </div>
 
