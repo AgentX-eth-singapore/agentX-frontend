@@ -5,12 +5,11 @@ import {
   SelectItem,
   Switch,
   Button,
-  Avatar,
   Textarea,
 } from "@nextui-org/react";
 import { IChain, chains } from "@/config/chains";
 import axios from "axios";
-import { stringify } from "viem";
+// import { stringify } from "viem";
 import Ajv from "ajv";
 
 export default function Form() {
@@ -51,7 +50,7 @@ export default function Form() {
 
     let abi;
     try {
-      console.log(textABI.trim(), 'textABI.trim()')
+      console.log(textABI.trim(), "textABI.trim()");
       abi = JSON.parse(textABI.trim());
     } catch (parseError) {
       console.log("Invalid JSON format. Please check your input.");
@@ -75,7 +74,7 @@ export default function Form() {
       ccipEnabled: isCCIPEnabled,
       functionName: isCCIPEnabled ? functionName : "",
       smartAccountEnabled: isMetaTransactionEnabled,
-      abi : textABI.trim(),
+      abi: textABI.trim(),
     };
 
     try {
