@@ -8,9 +8,10 @@ import { useAccount } from "wagmi";
 
 interface ENSFormProps {
   setEns: (ens: string) => void;
+  setEnsHash: (ensHash: string) => void;
 }
 
-const ENSForm: React.FC<ENSFormProps> = ({ setEns }) => {
+const ENSForm: React.FC<ENSFormProps> = ({ setEns, setEnsHash }) => {
   const { address } = useAccount(); // Get the address from the account
   const RESOVLER_ADDRESS = "0xf7D3d37ea056e1A6e73CF75A7F005C232c1b2A2d"; // Define the resolver address
   // Define state with appropriate types
@@ -43,6 +44,7 @@ const ENSForm: React.FC<ENSFormProps> = ({ setEns }) => {
       localStorage.setItem("ens", JSON.stringify(mapping));
 
       // Wait for the transaction receipt
+      setEnsHash(hash);
       console.log(hash);
       // Additional logic can be implemented here, such as using the resolved address
     } catch (error) {

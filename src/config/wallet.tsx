@@ -4,7 +4,7 @@
 import { defaultWagmiConfig } from '@web3modal/wagmi/react/config'
 
 import { cookieStorage, createStorage } from 'wagmi'
-import { mainnet, sepolia } from 'wagmi/chains'
+import { mainnet, sepolia, rootstock, flowMainnet,optimismSepolia, morphHolesky,  } from 'wagmi/chains'
 
 // Your Reown Cloud project ID
 export const projectId = '2e373bd7281585c0b20e47bc2e15419e'
@@ -18,7 +18,7 @@ const metadata = {
 }
 
 // Create wagmiConfig
-const chains = [mainnet, {
+const chains = [mainnet, rootstock, flowMainnet,optimismSepolia, morphHolesky, {
     ...sepolia, rpcUrls: {
         default: {
             http: ['https://ethereum-sepolia-rpc.publicnode.com'],
