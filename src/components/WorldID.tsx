@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import { IDKitWidget, VerificationLevel } from "@worldcoin/idkit";
 import { Button } from "@nextui-org/button";
-import worldid from "../assets/worldId.png";
+import worldid from "@/assets/worldid.png";
 
 interface WorldIDProps {
   setStage: (stage: string) => void;
