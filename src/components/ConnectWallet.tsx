@@ -2,7 +2,7 @@ import { FaCheckCircle } from "react-icons/fa";
 import ConnectButton from "./Connect";
 // import { useAccount } from "wagmi";
 
-import { Button } from "@nextui-org/button";
+// import { Button } from "@nextui-org/button";
 import { useAccount } from "wagmi";
 // import { useEthersSigner } from "@/config/ethersProvider";
 // import { Input } from "@nextui-org/input";
@@ -93,7 +93,7 @@ export default function ConnectWallet() {
             fontSize: "1.5rem",
             fontWeight: "bold",
             textAlign: "center",
-            marginTop: "3rem",
+            marginTop: "1rem",
           }}
         >
           {isConnected
@@ -134,12 +134,12 @@ export default function ConnectWallet() {
             marginTop: "1rem",
           }}
         >
-          <ConnectButton></ConnectButton>
+          <ConnectButton />
         </div>
 
         {isConnected}
         <div>
-          <Button onClick={sendMessageToExtension}>Send Message</Button>
+          {/* <Button onClick={sendMessageToExtension}>Send Message</Button> */}
         </div>
       </div>
     </div>
