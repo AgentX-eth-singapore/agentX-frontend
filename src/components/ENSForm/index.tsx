@@ -1,8 +1,7 @@
 import { Input, Button } from "@nextui-org/react"; // Ensure Button is imported correctly from NextUI
-import { resolveAddress } from "ethers";
 import React, { useState } from "react";
 import { abi as ENSResolverABI } from "../../abi/ENSController.json";
-import { simulateContract, writeContract, waitForTransaction, waitForTransactionReceipt } from '@wagmi/core'
+import { simulateContract, writeContract, waitForTransactionReceipt } from '@wagmi/core'
 import { config } from "@/config/wallet";
 import { useAccount } from "wagmi";
 
@@ -23,7 +22,7 @@ const ENSForm: React.FC<ENSFormProps> = ({ setEns }) => {
   const handleSubmit = async (name: string) => {
     setIsLoading(true);
     try {
-      // Call resolveAddress from ethers to get the address associated with the ENS name
+      
       const tx = await simulateContract(config, {
         address: RESOVLER_ADDRESS,
         abi: ENSResolverABI,

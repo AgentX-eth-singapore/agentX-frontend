@@ -7,13 +7,10 @@ import DefaultLayout from "@/layouts/default";
 import { Switch } from "@nextui-org/switch";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useAccount, useEnsName } from "wagmi";
+import { useAccount } from "wagmi";
 
 export default function IndexPage() {
   const { isConnected, address } = useAccount();
-  const { data: ensName } = useEnsName({
-    address: address
-  })
 
   const [isRegisteringSmartContract, setIsRegisteringSmartContract] =
     useState(false);

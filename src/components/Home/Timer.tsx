@@ -12,12 +12,12 @@ const Timer = () => {
   const initialEndTime = savedEndTime ? parseInt(savedEndTime, 10) : Date.now() + 8 * HOUR;
 
   // Initialize the state with the time difference between the end time and now
-  const [endTime, setEndTime] = useState(initialEndTime);
+  const [endTime, _setEndTime] = useState(initialEndTime);
   const [time, setTime] = useState(endTime - Date.now());
 
   useEffect(() => {
     // Save the current end time to localStorage to persist it
-    localStorage.setItem("endTime", endTime);
+    localStorage.setItem("endTime", endTime.toString());
 
     const interval = setInterval(() => {
       const remainingTime = endTime - Date.now();
