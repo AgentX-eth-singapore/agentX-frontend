@@ -1,27 +1,27 @@
+import { Switch } from "@nextui-org/switch";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { useAccount } from "wagmi";
+
 import ConnectWallet from "@/components/ConnectWallet";
 import ENSForm from "@/components/ENSForm";
 import Form from "@/components/Form";
 import WorldID from "@/components/WorldID";
 import { IChain } from "@/config/chains";
 import DefaultLayout from "@/layouts/default";
-import { Switch } from "@nextui-org/switch";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useAccount, useEnsName } from "wagmi";
 
 export default function IndexPage() {
-  const { isConnected, address } = useAccount();
-  const { data: ensName } = useEnsName({
-    address: address
-  })
+  const { isConnected, address, chain } = useAccount();
 
   const [isRegisteringSmartContract, setIsRegisteringSmartContract] =
     useState(false);
   const [ens, setEns] = useState<string>("");
   const [stage, setStage] = useState("world-id");
   const [isWorldIDVerified, setIsWorldIDVerified] = useState(
-    localStorage.getItem("isWorldIDVerified") === "true"
+    localStorage.getItem("isWorldIDVerified") === "true",
   );
+  const [ensHash, setEnsHash] = useState("");
 
   // Sync handler function to ensure state changes reflect in both components
   const handleToggle = () => {
@@ -64,7 +64,7 @@ export default function IndexPage() {
     isCCIPEnabled: boolean,
     functionName: string,
     isMetaTransactionEnabled: boolean,
-    textABI: string
+    textABI: string,
   ) => {
     console.log("Submitting form...", chain, contractAddress);
     // if (!chain?.chainId || !contractAddress) {
@@ -114,7 +114,7 @@ export default function IndexPage() {
       const response = await axios.post(
         `${PROD}/api/contracts/store`,
         payload,
-        { headers: { "Content-Type": "application/json" } }
+        { headers: { "Content-Type": "application/json" } },
       );
 
       console.log("Response:", response);
@@ -126,13 +126,13 @@ export default function IndexPage() {
       } else {
         console.error(
           "Error: Failed to register the contract : ",
-          response.statusText
+          response.statusText,
         );
       }
     } catch (error) {
       console.error(
         "Error: An error occurred while registering the contract : ",
-        error
+        error,
       );
     } finally {
       setIsLoading(false);
@@ -143,8 +143,10 @@ export default function IndexPage() {
     if (isConnected && address) {
       // fetch ens from local storage
       const ens = localStorage.getItem("ens");
+
       if (ens) {
         const ensConfig = JSON.parse(ens);
+
         if (address) {
           setEns(ensConfig[address]);
         }
@@ -152,14 +154,16 @@ export default function IndexPage() {
     }
   }, [isConnected, address]);
 
+  const ExplorerURL = `${chain?.blockExplorers?.default?.url}/tx/${ensHash}`;
+
   return (
     <DefaultLayout stage={stage}>
       {/* <Button onClick={handleCall}>CLICK</Button> */}
       {stage === "world-id" && (
         <WorldID
           isWorldIDVerified={isWorldIDVerified}
-          setStage={setStage}
           setIsWorldIDVerified={setIsWorldIDVerified}
+          setStage={setStage}
         />
       )}
 
@@ -169,20 +173,41 @@ export default function IndexPage() {
           <div className="relative w-96 h-[65vh] perspective-3d">
             {/* Card Inner Wrapper */}
             <div
-              className={`relative w-full h-full transition-transform duration-700 transform-style-3d ${isRegisteringSmartContract ? "rotate-y-180" : ""
-                }`}
+              className={`relative w-full h-full transition-transform duration-700 transform-style-3d ${
+                isRegisteringSmartContract ? "rotate-y-180" : ""
+              }`}
             >
               {/* Front Side */}
               <div className="absolute w-full h-full backface-hidden flex justify-center items-center bg-white shadow-lg rounded-lg flex-col">
                 {stage === "connect-wallet" && <ConnectWallet />}
-                {!ens ? <ENSForm setEns={setEns}></ENSForm> : <div> Hello {ens} 👋</div>}
+                {!ens ? (
+                  <ENSForm setEns={setEns} setEnsHash={setEnsHash} />
+                ) : (
+                  <div className="flex">
+                    {" "}
+                    Hello {ens} 👋
+                    {ensHash && <Link className="pl-2" to={ExplorerURL}>
+                      <svg
+                        fill="gray"
+                        height="24px"
+                        viewBox="0 -960 960 960"
+                        width="24px"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z" />
+                      </svg>
+                    </Link>}
+                  </div>
+                )}
                 <Switch
                   aria-label="Register Smart Contract"
                   className="py-8"
                   isSelected={isRegisteringSmartContract}
                   onValueChange={handleToggle}
                 >
-                  <span className="text-sm">Are You Registering Smart Contract.</span>
+                  <span className="text-sm">
+                    Are You Registering Smart Contract.
+                  </span>
                 </Switch>
               </div>
 
@@ -194,14 +219,15 @@ export default function IndexPage() {
                   isSelected={isRegisteringSmartContract}
                   onValueChange={handleToggle}
                 >
-                  <span className="text-sm">{UID ? "GO Back!!" : "Are You Registering Smart Contract."}</span>
-                  
+                  <span className="text-sm">
+                    {UID ? "GO Back!!" : "Are You Registering Smart Contract."}
+                  </span>
                 </Switch>
                 {isConnected ? (
                   <Form
+                    UID={UID}
                     handleSubmit={handleSubmit}
                     isLoading={isLoading}
-                    UID={UID}
                   />
                 ) : (
                   <div>Empty</div>
