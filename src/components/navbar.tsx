@@ -16,7 +16,7 @@ import { ThemeSwitch } from "@/components/theme-switch";
 // import {
 //   SearchIcon,
 // } from "@/components/icons";
-import { HeartFilledIcon, Logo } from "@/components/icons";
+import { Logo } from "@/components/icons";
 import ConnectButton from "./Connect";
 import { Button } from "@nextui-org/button";
 

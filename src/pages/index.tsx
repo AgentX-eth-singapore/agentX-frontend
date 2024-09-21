@@ -3,10 +3,9 @@ import Form from "@/components/Form";
 import WorldID from "@/components/WorldID";
 import { IChain } from "@/config/chains";
 import DefaultLayout from "@/layouts/default";
-import { Button } from "@nextui-org/button";
 import { Switch } from "@nextui-org/switch";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useAccount } from "wagmi";
 
 export default function IndexPage() {
@@ -26,30 +25,30 @@ export default function IndexPage() {
     setUID("");
   };
 
-  const handleCall = async () => {
-    let chatQuery = "Who are you?";
-    let model = "o1-preview";
-    const obj = {
-      chatQuery,
-      model,
-    };
+  // const handleCall = async () => {
+  //   let chatQuery = "Who are you?";
+  //   let model = "o1-preview";
+  //   const obj = {
+  //     chatQuery,
+  //     model,
+  //   };
 
-    try {
-      const response = await axios.post(
-        "http://localhost:3000/api/contracts/store",
-        obj,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+  //   try {
+  //     const response = await axios.post(
+  //       "http://localhost:3000/api/contracts/store",
+  //       obj,
+  //       {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     );
 
-      console.log(response.data);
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
+  //     console.log(response.data);
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //   }
+  // };
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [UID, setUID] = useState("");
