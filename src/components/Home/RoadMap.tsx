@@ -24,7 +24,7 @@ const Step: React.FC<StepProps> = ({
     {forwardPosition === "top" && forwardImage && (
       <img src={forwardImage} alt="fwd" className="mb-3" />
     )}
-    <img className="w-36" src={imageUrl} alt="step" />
+    <img className="w-20" src={imageUrl} alt="step" />
     <p className="text-purple-500 mt-3">{status}</p>
     <h3 className="text-3xl font-semibold my-4 mt-2">{title}</h3>
     <div className="flex flex-col gap-3">
@@ -97,7 +97,7 @@ const RoadMap: React.FC = () => {
         <div className="flex items-center justify-center text-center gap-3 flex-col mb-16">
           <img src="./images/wave-pattern.webp" className="h-7" alt="wave" />
           <p className="text-4xl font-medium">
-            June <span className="text-purple-500">Submission</span>
+            September <span className="text-purple-500">Submission</span>
           </p>
         </div>
       </Parallax>

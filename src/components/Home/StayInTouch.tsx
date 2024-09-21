@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const StayInTouch = () => {
   return (
     <div className="flex lg:flex-row md:flex-row flex-col justify-evenly items-center gap-5 gap-y-16 pt-32 w-full px-5">
@@ -15,9 +17,9 @@ const StayInTouch = () => {
             alt="bird"
           />
         </h3>
-        <button className="bg-purple-600 hover:bg-purple-700 text-white font-medium px-10 py-3 rounded-xl mt-6 transition-colors duration-300">
+        <Link to={'https://www.linkedin.com/in/codersadhu/'} className="bg-purple-600 hover:bg-purple-700 text-white font-medium px-10 py-3 rounded-xl mt-6 transition-colors duration-300">
           Explore 😎
-        </button>
+        </Link>
       </div>
 
       {/* Right Section - Image and Contact Info */}

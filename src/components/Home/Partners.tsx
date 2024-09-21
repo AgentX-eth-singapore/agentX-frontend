@@ -55,7 +55,7 @@ const Partners = () => {
       <div className="flex items-center justify-center text-center gap-3 flex-col mb-24">
         <img src="./images/wave-pattern.webp" alt="wave pattern" className="h-7" />
         <p className="text-4xl font-medium">
-          Our <span className="text-purple-500">Partners</span>
+          Powered <span className="text-purple-500">By</span>
         </p>
       </div>
 

@@ -7,27 +7,48 @@ const HOUR = MINUTE * 60;
 const DAY = HOUR * 24;
 
 const Timer = () => {
-  const selectedDate = "June 30, 2023";
-  const parsedDeadline = useMemo(() => Date.parse(selectedDate), [selectedDate]);
-  const [time, setTime] = useState(parsedDeadline - Date.now());
+  // Load the saved end time from localStorage, or set to 8 hours from now if not found
+  const savedEndTime = localStorage.getItem("endTime");
+  const initialEndTime = savedEndTime ? parseInt(savedEndTime, 10) : Date.now() + 8 * HOUR;
+
+  // Initialize the state with the time difference between the end time and now
+  const [endTime, setEndTime] = useState(initialEndTime);
+  const [time, setTime] = useState(endTime - Date.now());
 
   useEffect(() => {
-    const interval = setInterval(() => setTime(parsedDeadline - Date.now()), 1000);
-    return () => clearInterval(interval);
-  }, [parsedDeadline]);
+    // Save the current end time to localStorage to persist it
+    localStorage.setItem("endTime", endTime);
 
-  const timeUnits = {
-    DAYS: Math.max(0, Math.floor(time / DAY)),
-    HOURS: Math.max(0, Math.floor((time / HOUR) % 24)),
-    MINUTES: Math.max(0, Math.floor((time / MINUTE) % 60)),
-    SECONDS: Math.max(0, Math.floor((time / SECOND) % 60)),
-  };
+    const interval = setInterval(() => {
+      const remainingTime = endTime - Date.now();
+      setTime(remainingTime);
+
+      // Stop the timer and remove the end time from storage if time runs out
+      if (remainingTime <= 0) {
+        clearInterval(interval);
+        localStorage.removeItem("endTime");
+        setTime(0); // Set time to 0 explicitly when the timer ends
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [endTime]);
+
+  const timeUnits = useMemo(
+    () => ({
+      DAYS: Math.max(0, Math.floor(time / DAY)),
+      HOURS: Math.max(0, Math.floor((time / HOUR) % 24)),
+      MINUTES: Math.max(0, Math.floor((time / MINUTE) % 60)),
+      SECONDS: Math.max(0, Math.floor((time / SECOND) % 60)),
+    }),
+    [time]
+  );
 
   return (
     <div>
       <div className="lg:text-6xl md:text-5xl text-3xl font-medium flex flex-col gap-10 items-center justify-center w-full">
         <div className="flex justify-evenly w-full">
-          <div className="text-purple-500">June Challenge</div>
+          <div className="text-purple-500 lg:text-5xl">ETH Singapore Challenge</div>
           <Parallax speed={-5} easing="easeInQuad">
             <img src="./images/robot.png" className="lg:h-32 md:h-32 h-20" alt="robot" />
           </Parallax>
@@ -36,7 +57,7 @@ const Timer = () => {
           <Parallax translateX={["0px", "-100px"]} translateY={["0px", "100px"]} scale={[1, 1.5]} easing="easeInQuad">
             <img src="./images/rocket.webp" className="h-32" alt="rocket" />
           </Parallax>
-          <div>Ending Soon</div>
+          <div>Launching Soon</div>
         </div>
       </div>
 
