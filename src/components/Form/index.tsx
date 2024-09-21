@@ -9,9 +9,6 @@ import {
 } from "@nextui-org/react";
 
 import { IChain, chains } from "@/config/chains";
-import axios from "axios";
-// import { stringify } from "viem";
-import Ajv from "ajv";
 import WithCopyText from "../common/WithCopyText";
 
 export default function Form({
@@ -37,25 +34,6 @@ export default function Form({
   const [isMetaTransactionEnabled, setIsMetaTransactionEnabled] =
     useState<boolean>(false);
   const [textABI, setTextABI] = useState("");
-
-  const abiSchema = {
-    type: "array",
-    items: {
-      type: "object",
-      properties: {
-        inputs: { type: "array" },
-        stateMutability: { type: "string" },
-        type: { type: "string" },
-        name: { type: "string" },
-        outputs: { type: "array", nullable: true },
-        anonymous: { type: "boolean", nullable: true },
-      },
-      required: ["type"], // At least 'type' is required in each object
-    },
-  };
-
-  // Initialize ajv instance
-  // const ajv = new Ajv();
 
   useEffect(() => {
     setChain(null);

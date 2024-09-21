@@ -47,17 +47,17 @@ export default function ConnectWallet() {
   // setIsLoading(false);
   //   };
 
-  const sendMessageToExtension = () => {
-    // var editorExtensionId = "ipbmkbhgjdmagedkfaneidmlhpeimknf";
-    // // @ts-ignore
-    // chrome.runtime.sendMessage(
-    //   editorExtensionId,
-    //   signer,
-    //   function (response: any) {
-    //     console.log("key stored");
-    //   }
-    // );
-  };
+  // const sendMessageToExtension = () => {
+  // var editorExtensionId = "ipbmkbhgjdmagedkfaneidmlhpeimknf";
+  // // @ts-ignore
+  // chrome.runtime.sendMessage(
+  //   editorExtensionId,
+  //   signer,
+  //   function (response: any) {
+  //     console.log("key stored");
+  //   }
+  // );
+  // };
 
   return (
     <div
