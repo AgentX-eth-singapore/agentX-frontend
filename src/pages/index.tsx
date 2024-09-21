@@ -97,7 +97,7 @@ export default function IndexPage() {
       // await new Promise((resolve) => setTimeout(resolve, 2000));
 
       const response = await axios.post(
-        "http://localhost:3000/api/contracts/store",
+        "https://backend-contract-service.onrender.com/api/contracts/store",
         payload,
         { headers: { "Content-Type": "application/json" } }
       );
